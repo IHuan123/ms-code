@@ -38,3 +38,10 @@ function test2(a){
 }
 let resfn = test2.myBind(obj1);
 resfn(12)
+
+
+function test(){
+    console.log(this);
+}
+let test1 = test.bind(null); //此时this -> window
+test1();
