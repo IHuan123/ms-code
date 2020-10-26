@@ -1,3 +1,4 @@
+//原生js图片懒加载
 window.onload = function () {
     let imgs = document.querySelectorAll('img')
     // 可视区高度

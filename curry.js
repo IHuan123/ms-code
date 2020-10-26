@@ -1,3 +1,4 @@
+//函数柯里化
 function curry(fn,...args){
     let fnLength = fn.length;
     let argsArr = args;

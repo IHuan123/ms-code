@@ -1,3 +1,4 @@
+
 const sy = new Set();
 let arr = [1,3,4,56,7,3,1,1];
 arr.forEach((item,i,arr)=>{
@@ -5,7 +6,7 @@ arr.forEach((item,i,arr)=>{
 })
 console.log(sy)
 
-
+//js 节流和防抖
 function throttle(fn,delay){
     let pre = Date.now();
     return function(){

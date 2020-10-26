@@ -1,3 +1,4 @@
+//手写实现instanceof
 function _instanceof(constructor,obj){
     let proto = obj.__proto__;
     let proptotype = constructor.prototype;

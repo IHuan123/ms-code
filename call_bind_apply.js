@@ -1,3 +1,4 @@
+//手写call、apply、bind
 Function.prototype.myCall=function(obj,...args){
     if(typeof this !== 'function'){
         throw new TypeError('not funciton')

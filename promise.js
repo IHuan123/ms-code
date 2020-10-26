@@ -1,3 +1,4 @@
+//手写实现一个promise
 // 未添加异步处理等其他边界情况
 // ①自动执行函数，②三个状态，③then
 class myPromise{
