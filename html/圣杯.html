@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            padding:0;
+            margin:0;
+            height:100%;
+        }
+        #hd{
+            height:50px;
+            background: #666;
+            text-align: center;
+        }
+        #bd{
+            height:calc(100% - 100px);
+            padding:0 150px 0 200px;
+        }
+        #bd::after{
+            display:table;
+            content: '';
+            clear: both;
+        }
+        #middle,#left,#right{
+            height:100%;
+        }
+        #left{
+            width:200px;
+            background:red;
+            float:left;
+            margin-left:-200px;
+        }
+        #middle{
+            width:100%;
+            background:greenyellow;
+            float:left;
+        }
+        #right{
+            width:150px;
+            background:blue;
+            float:right;
+            position: relative;
+            margin-right:-150px;
+        }
+        #footer{
+            height:50px;
+            background: #666;
+            text-align: center;
+        }
+        </style>
+</head>
+<body>
+    <div id="hd">header</div>
+    <div id="bd">
+        <div id="left">left</div>
+        <div id="middle">middle</div>
+        <div id="right">right</div>
+    </div>
+    <div id="footer">footer</div>
+</body>
+</html>
