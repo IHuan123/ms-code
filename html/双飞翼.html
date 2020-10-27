@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+
+        #hd {
+            height: 50px;
+            background: #666;
+            text-align: center;
+        }
+        #left,#right,#middle{
+            float: left;
+            height:calc(100% - 100px);
+        }
+        #middle {
+            width:100%;
+            background:greenyellow;
+        }
+
+        #left {
+            width:250px;
+            background:red;
+            margin-left:-100%;
+        }
+
+        #right {
+            width:180px;
+            background:blue;
+            margin-left:-180px;
+        }
+
+        /*给内部div添加margin，把内容放到中间栏，其实整个背景还是100%*/
+        #inside {
+            height:100%;
+            background:grey;
+            margin:0 180px 0 250px;
+        }
+
+        #footer {
+            clear: both;
+            /*记得清楚浮动*/
+            height: 50px;
+            background: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hd">header</div>
+    <div id="middle">
+        <div id="inside">middle</div>
+    </div>
+    <div id="left">left</div>
+    <div id="right">right</div>
+    <div id="footer">footer</div>
+</body>
+
+</html>
+<script>
+    let html = document.documentElement;
+    let body = document.body;
+    console.log(body.parentElement.childNodes)
+</script>

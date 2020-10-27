@@ -135,6 +135,7 @@ function findPathBFS(source, id) {
                 d.parent = curData
                 return d;
             }))
+            console.log(res)
         }
     }
     return [];

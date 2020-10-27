@@ -1,3 +1,4 @@
+//设置页面html字体大小 rem适配
 function setRem() {
     let html = document.documentElement;
     let clientWidth = html.clientWidth;

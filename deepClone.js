@@ -1,3 +1,4 @@
+//对象深克隆
 function deepClone(obj){
     //处理obj为正则、原始数据、
     if(typeof obj !== 'object') return obj;

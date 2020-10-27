@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            height:100%;
+        }
+        body{
+            padding:0;
+            margin:0;
+        }
+        .box{
+            width:100%;
+            height:100%;
+        }
+        .center-box{
+            width:300px;
+            height:300px;
+            background:red;
+        }
+        /*** 一 ***/
+        /* .box{
+            position: relative;
+        }
+        .center-box{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        } */
+        /**** 二 ****/
+        /* .box{
+            position: relative;
+        }
+        .center-box{
+            position: absolute;
+            left:50%;
+            top:50%;
+            margin-left:-150px;
+            margin-top:-150px;
+        } */
+        /**** 三 ****/
+        /* .box{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        } */
+        /***四***/
+        .box{
+            width:600px;
+            height:600px;
+            margin:0 auto;
+            display:table;
+            background:gray;
+        }
+        .center-box{
+            display:table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .inner {
+            background-color: #000;
+            display: inline-block;
+            width: 20%;
+            height: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="center-box"><div class="inner"></div></div>
+    </div>
+</body>
+</html>

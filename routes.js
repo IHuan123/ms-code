@@ -1,3 +1,4 @@
+//原生js实现一个路由
 // hash路由
 class Route{
     constructor(){

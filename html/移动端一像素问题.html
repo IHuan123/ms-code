@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+        }
+
+        /* [data-test="111"]{
+            
+        } */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            color: #f55;
+            background: yellow;
+            width: 200px;
+            line-height: 100px;
+            text-align: center;
+            margin: 30px;
+        }
+        .float{
+            width:300px;
+            height:300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" data-test="111">
+
+    </div>
+    <p>看看我的 margin是多少</p>
+    <div style="overflow: hidden;">
+        <p>看看我的 margin是多少</p>
+    </div>
+    <div class="float">
+        <div style="height: 100px;width: 100px;float: left;background: lightblue">我是一个左浮动的元素</div>
+        <div style="width: 200px; height: 200px;background: #eee;overflow: hidden;">我是一个没有设置浮动,
+            也没有触发 BFC 元素, width: 200px; height:200px; background: #eee;</div>
+    </div>
+</body>
+
+</html>
