@@ -64,7 +64,7 @@ function dfs(node, nodeList = []) {
     }
     return nodeList;
 }
-// console.log('递归版本', dfs(node));
+console.log('递归版本', dfs(node));
 
 //深度遍历 非递归版本
 function dfsNotDg(node) {
@@ -135,10 +135,9 @@ function findPathBFS(source, id) {
                 d.parent = curData
                 return d;
             }))
-            console.log(res)
         }
     }
     return [];
 }
 
-console.log(findPathBFS(node, 3111));
+// console.log(findPathBFS(node, 3111));
