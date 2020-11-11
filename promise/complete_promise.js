@@ -1,12 +1,13 @@
  // 判断变量否为function
  const isFunction = variable => typeof variable === 'function'
  // 定义Promise的三种状态常量
+ // promise状态只能在resolve与reject中改变且只改变一次
+ // 添加状态（只能由PENDING->FULFILLED/REJECTED ,不可逆）
  const PENDING = 'PENDING' // 执行中
  const FULFILLED = 'FULFILLED' // 成功
  const REJECTED = 'REJECTED' // 失败
 
  class MyPromise {
-     // 添加状态（只能由PENDING->FULFILLED/REJECTED ,不可逆）
      _status = PENDING
      // 添加返回结果
      _value = undefined
@@ -28,13 +29,19 @@
              this._reject(err)
          }
      }
+
+
      // 添加resovle时执行的函数
      _resolve(val) {
+
+         console.log('_fulfilledQueues*-*-*-*', this._fulfilledQueues,val)
          const run = () => {
              if (this._status !== PENDING) return
-             this._status = FULFILLED
+             this._status = FULFILLED // 在status为pending时改变状态
+
              // 依次执行成功队列中的函数，并清空队列
              const runFulfilled = (value) => {
+                 console.log('runFulfilled')
                  let cb;
                  while (cb = this._fulfilledQueues.shift()) {
                      cb(value)
@@ -42,6 +49,7 @@
              }
              // 依次执行失败队列中的函数，并清空队列
              const runRejected = (error) => {
+                 console.log('runRejected')
                  let cb;
                  while (cb = this._rejectedQueues.shift()) {
                      cb(error)
@@ -51,6 +59,7 @@
                当前Promsie的状态才会改变，且状态取决于参数Promsie对象的状态
              */
              if (val instanceof MyPromise) {
+                console.log('是MyPromise实例 执行了')
                  val.then(value => {
                      this._value = value
                      runFulfilled(value)
@@ -59,6 +68,7 @@
                      runRejected(err)
                  })
              } else {
+                 console.log('不是MyPromise实例 执行了runFulfilled')
                  this._value = val
                  runFulfilled(val)
              }
@@ -71,7 +81,7 @@
          if (this._status !== PENDING) return
          // 依次执行失败队列中的函数，并清空队列
          const run = () => {
-             this._status = REJECTED
+             this._status = REJECTED // 在status为pending时改变状态
              this._value = err
              let cb;
              while (cb = this._rejectedQueues.shift()) {
@@ -83,17 +93,46 @@
      }
      // 添加then方法
      then(onFulfilled, onRejected) {
-         const { _value,_status } = this
-         // 返回一个新的Promise对象
+         const {_value,_status} = this
+         // then返回一个新的Promise对象
          return new MyPromise((onFulfilledNext, onRejectedNext) => {
+
              // 封装一个成功时执行的函数
              let fulfilled = value => {
                  try {
                      if (!isFunction(onFulfilled)) {
+                         console.log('!isFunction(onFulfilled) === true')
                          onFulfilledNext(value)
                      } else {
-                         let res = onFulfilled(value);
+
+                        console.log('!isFunction(onFulfilled) === false')
+                         let res = onFulfilled(value); //这里返回.then中的结果 传入下一个then
+                         console.log(res)
                          //判断then中的函数是否为Promise
+                         if (res instanceof MyPromise) {
+                             // 如果当前回调函数返回MyPromise对象，必须等待其状态改变后在执行下一个回调
+                             console.log('调用res.then')
+                             res.then(onFulfilledNext, onRejectedNext)
+                         } else {
+                             // 否则会将返回结果直接作为参数，传入下一个then的回调函数，并立即执行下一个then的回调函数
+                             console.log('调用onFulfilledNext')
+                             onFulfilledNext(res)
+                         }
+                     }
+                 } catch (err) {
+                     // 如果函数执行出错，新的Promise对象的状态为失败
+                     onRejectedNext(err)
+                 }
+             }
+
+
+             // 封装一个失败时执行的函数
+             let rejected = error => {
+                 try {
+                     if (!isFunction(onRejected)) {
+                         onRejectedNext(error)
+                     } else {
+                         let res = onRejected(error);
                          if (res instanceof MyPromise) {
                              // 如果当前回调函数返回MyPromise对象，必须等待其状态改变后在执行下一个回调
                              res.then(onFulfilledNext, onRejectedNext)
@@ -107,37 +146,23 @@
                      onRejectedNext(err)
                  }
              }
-             // 封装一个失败时执行的函数
-             let rejected = error => {
-                 try {
-                     if (!isFunction(onRejected)) {
-                         onRejectedNext(error)
-                     } else {
-                         let res = onRejected(error);
-                         if (res instanceof MyPromise) {
-                             // 如果当前回调函数返回MyPromise对象，必须等待其状态改变后在执行下一个回调
-                             res.then(onFulfilledNext, onRejectedNext)
-                         } else {
-                             //否则会将返回结果直接作为参数，传入下一个then的回调函数，并立即执行下一个then的回调函数
-                             onFulfilledNext(res)
-                         }
-                     }
-                 } catch (err) {
-                     // 如果函数执行出错，新的Promise对象的状态为失败
-                     onRejectedNext(err)
-                 }
-             }
+
+
+             console.log('then status', _status)
              switch (_status) {
                  // 当状态为pending时，将then方法回调函数加入执行队列等待执行
                  case PENDING:
+                     console.log('push --------------')
                      this._fulfilledQueues.push(fulfilled)
                      this._rejectedQueues.push(rejected)
                      break
                      // 当状态已经改变时，立即执行对应的回调函数
                  case FULFILLED:
+                     console.log('执行了fulfilled')
                      fulfilled(_value)
                      break
                  case REJECTED:
+                     console.log('执行了rejected')
                      rejected(_value)
                      break
              }
@@ -207,14 +232,28 @@
  }
 
 
- function test(){
-     return new MyPromise((resolve,reject)=>{
+ function test() {
+     return new MyPromise((resolve, reject) => {
          resolve('执行成功')
-        // reject('执行失败')
+         // reject('执行失败')
      })
  }
- test().then(res=>{
-     console.log('then res',res)
- }).catch(e=>{
-     console.log('执行出错',e)
+function test1(){
+    return new MyPromise((res,rej)=>{
+        res(77777)
+    })
+}
+ test()
+ .then(res => {
+     console.log(111, res)
  })
+//  .then(test1)
+//  .then((res)=>{
+//      console.log(222,res)
+//  })
+//  .then(()=>{
+//      console.log(333)
+//  })
+//  .catch(e => {
+//      console.log('执行出错', e)
+//  })
