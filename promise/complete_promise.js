@@ -233,27 +233,31 @@
 
 
  function test() {
-     return new MyPromise((resolve, reject) => {
-         resolve('执行成功')
-         // reject('执行失败')
-     })
- }
-function test1(){
-    return new MyPromise((res,rej)=>{
-        res(77777)
+    return new MyPromise((resolve, reject) => {
+        console.log(l)
+        resolve('resolve调用返回结果------------------')
+        
+        // reject('reject调用返回结果-------------')
     })
 }
- test()
- .then(res => {
-     console.log(111, res)
- })
-//  .then(test1)
-//  .then((res)=>{
-//      console.log(222,res)
-//  })
-//  .then(()=>{
-//      console.log(333)
-//  })
-//  .catch(e => {
-//      console.log('执行出错', e)
-//  })
+function test2(res){
+    return new MyPromise((resolve,reject)=>{
+        resolve('test2 resolve'+res)
+    })
+}
+
+test()
+    // .then(test2)
+    .then(res => {
+        console.log('第一个then', res)
+        return res
+    })
+    .then(res => {
+        console.log('第二个then', res)
+    })
+    .then(res => {
+        console.log('第三个then', res)
+    })
+    .catch(e => {
+        console.log(e)
+    })
