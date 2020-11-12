@@ -6,7 +6,8 @@ arr.forEach((item,i,arr)=>{
 })
 console.log(sy)
 
-//js 节流和防抖
+// 节流
+
 function throttle(fn,delay){
     let pre = Date.now();
     return function(){
@@ -18,7 +19,11 @@ function throttle(fn,delay){
         }
     }
 }
-
+// 防抖
+// 应用场景
+// 滚动加载，加载更多或滚到底部监听
+// 谷歌搜索框，搜索联想功能
+// 高频点击提交，表单重复提交
 function debounce(fn,delay){
     let timer = null;
     return function(){
