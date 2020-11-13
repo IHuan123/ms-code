@@ -1,3 +1,4 @@
+'use strict' // 启用严格模式
 let node = [{
         id: '0',
         child: [{
@@ -51,7 +52,6 @@ let node = [{
     }
 ]
 
-
 //深度遍历 递归版本
 function dfs(node, nodeList = []) {
     if (Array.isArray(node)) {
@@ -64,7 +64,7 @@ function dfs(node, nodeList = []) {
     }
     return nodeList;
 }
-console.log('递归版本', dfs(node));
+// console.log('递归版本', dfs(node));
 
 //深度遍历 非递归版本
 function dfsNotDg(node) {
@@ -117,6 +117,7 @@ function findPathBFS(source, id) {
     var res = []
     // 每一层的数据都 push 进 res
     res.push(...dataSource)
+    console.log('res',res)
     //不能使用forEach
     for (let i = 0; i < res.length; i++) {
         var curData = res[i];
@@ -140,4 +141,4 @@ function findPathBFS(source, id) {
     return [];
 }
 
-// console.log(findPathBFS(node, 3111));
+console.log(findPathBFS(node, 312));
