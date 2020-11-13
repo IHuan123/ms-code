@@ -2,6 +2,7 @@ let arr = [12, 4, 31, 65, 44, 6, 132, 1, 34, 65, 4, 64, 3, 13, 21, 31];
 
 //冒泡排序
 function sort(arr) {
+    if(!Array.isArray(arr)) return;
     for (let i = 1; i < arr.length; i++) {
         for (let j = 0; j < arr.length - 1; j++) {
             if (arr[j + 1] < arr[j]) {
@@ -11,7 +12,7 @@ function sort(arr) {
     }
     return arr;
 }
-// console.log(sort(arr))
+// console.log('sort',sort(arr))
 //快速排序
 function quickSort(arr) {
     if (!Array.isArray(arr)) return;
@@ -29,25 +30,27 @@ function quickSort(arr) {
     }
     return [...quickSort(leftArr), piovt, ...quickSort(rightArr)];
 }
-// console.log(quickSort(arr))
+// console.log('quickSort',quickSort(arr))
 
 //插入排序
-function Insertion(arr) {
+function insertion(arr) {
     let current = 0,
         preIndex = 0;
     for (let i = 0; i < arr.length; i++) {
-        current = arr[i];
-        preIndex = i - 1;
+        current = arr[i]; //当前
+        preIndex = i - 1; //上一个
         while (preIndex >= 0 && arr[preIndex] > current) {
             arr[preIndex + 1] = arr[preIndex];
             preIndex--
+            console.log(arr,preIndex+1,current)
         }
+        
         arr[preIndex + 1] = current;
     }
     return arr;
 }
 var arr1 = [3, 5, 7, 1, 4, 56, 12, 78, 25, 0, 9, 8, 42, 37];
-// console.log(Insertion(arr1));
+console.log('insertion',insertion(arr1));
 
 
 //选择排序
@@ -65,7 +68,7 @@ function selectSort(arr) {
     }
     return arr;
 }
-// console.log(selectSort(arr1))
+// console.log('selectSort',selectSort(arr1))
 
 
 
@@ -111,4 +114,4 @@ function merge(left, right) {
     }
     return result.concat(left, right);
 }
-console.log(mergeSort(arr1))
+// console.log(mergeSort(arr1))
