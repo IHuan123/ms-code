@@ -1,5 +1,5 @@
 if (!window.JSON) {
-    window.JSON = {
+    JSON = {
         parse: function(jsonStr) {
             return eval('(' + jsonStr + ')');
         },

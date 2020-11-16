@@ -58,16 +58,3 @@ var a1 = {
 };
 let obj = cloneObject(a1);
 console.log(obj)
-// 深拷贝 （es5）
-function cloneObjectES6(source, uniqueList){
-    if (!isObject(source)) return source; 
-    if (!uniqueList) uniqueList = []; // 新增代码，初始化数组
-    var target = Array.isArray(source) ? [] : {};
-
-
-    
-}
-
-function isObject(obj){
-    return typeof obj === 'object'&&obj!==null;
-}
