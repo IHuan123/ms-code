@@ -1,5 +1,4 @@
-import warning from './utils/warning'
-
+//将createAction用dispatch封装
 function bindActionCreator(actionCreator, dispatch) {
     return (...args) => dispatch(actionCreator(...args))
 }
@@ -19,7 +18,7 @@ export default function bindActionCreators(actionCreators, dispatch) {
         if (typeof actionCreator === 'function') {
             boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)
         } else {
-            warning(`bindActionCreators expected a function actionCreator for key '${key}', instead received type '${typeof actionCreator}'.`)
+            console.warn(`bindActionCreators expected a function actionCreator for key '${key}', instead received type '${typeof actionCreator}'.`)
         }
     }
     return boundActionCreators

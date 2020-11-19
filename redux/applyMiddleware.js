@@ -1,3 +1,5 @@
+import compose from './compose.js'
+
 //以redux-thunk为例
 export default function applyMiddleware (...middlewares) { //middlewares = [createThunkMiddleware] createThunkMiddleware为redux-thunk方法
     return (next) => { //next==createStore
