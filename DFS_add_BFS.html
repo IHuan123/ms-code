@@ -1,14 +1,90 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
-    <div id="root">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-    </div>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        .menu {
+            position: fixed;
+            background: #333;
+        }
+
+        .menu li {
+            float: left;
+            width: 100px;
+            height: 50px;
+            margin-left: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        a {
+            color: #fff;
+        }
+
+        .menu:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .body li {
+            height: 100%;
+            text-align: center;
+        }
+
+        .body li:first-child {
+            background: blue;
+        }
+
+        .body li:nth-child(2) {
+            background: red;
+        }
+
+        .body li:nth-child(3) {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <!--本页-->
+    <!-- location.hash="bottom";  -->
+    <!--跳转到其它页-->
+    <!-- location.href="url2.htm#bottom";  -->
+    <ul class="menu">
+        <li><a href="#html">html</a></li>
+        <li><a href="#css">css</a></li>
+        <li><a href="#js">js</a></li>
+    </ul>
+    <ul class="body">
+        <li id="html">html</li>
+        <li id="css">css</li>
+        <li id="js">js</li>
+    </ul>
 </body>
+
 </html>
 <script type="text/javascript" src="./DFS_add_BFS.js"></script>
