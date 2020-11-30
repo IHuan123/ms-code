@@ -22,9 +22,11 @@ let obj = {
     sy:Symbol('21111'),
     date:new Date(),
     reg:/\w*/g,
+    arr:[1,2,3]
 }
 let sy2 = Symbol('21111');
 obj[sy2] = 11111;
 let obj2 = deepClone(obj);
 obj.obj.in = 'hello';
+obj.arr[2] = 6;
 console.log(obj,obj2);

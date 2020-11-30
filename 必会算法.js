@@ -8,32 +8,6 @@ function checkPalindrom(str){
 
 
 
-/** 数组去重**/
-let arr = [1,13,464,1311,3,4,1,1,474,6,4,317,3335,4,444,55,55];
-//1
-function unique(arr){
-    let res = arr.filter((item,i,arr)=>{
-        return arr.indexOf(item) === i;
-    })
-    return res;
-}
-// console.log(unique(arr))
-//2
-function unique2(arr){
-    let obj = {};
-    let res = [];
-    for(var i = 0;i<arr.length;i++){
-        if(!obj[arr[i]]){
-            obj[arr[i]] = true;
-            res.push(arr[i]);
-        }
-    }
-    return res;
-}
-// console.log(unique2(arr))
-
-
-
 /** 统计出字符串中出现最多次数的字符;**/
 function findMaxDuplicateChar(str){
     let obj = {};
