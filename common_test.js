@@ -103,11 +103,18 @@ const {count:as_count,num:as_num} = test;
 console.log(as_count,as_num)
 
 
+
+
+// 箭头函数的 this 永远指向其上下文的 this ，任何方法都改变不了其指向，如 call() , bind() , apply()
+// 普通函数的this指向调用它的那个对象
+
 //箭头函数
 //箭头函数不能作为构造函数（不能new）
 //箭头函数没有arguments 可以使用es6解构(...args)
 //函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象
 //不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+//call,apply,bind不能改变箭头函数this的指向
+//箭头函数没有原型，不能继承
 function testF(){
     console.log('testF',this)
 }
