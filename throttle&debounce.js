@@ -1,11 +1,3 @@
-
-const sy = new Set();
-let arr = [1,3,4,56,7,3,1,1];
-arr.forEach((item,i,arr)=>{
-    sy.add(item)
-})
-console.log(sy)
-
 // 节流
 
 function throttle(fn,delay){
