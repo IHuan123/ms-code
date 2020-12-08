@@ -141,4 +141,4 @@ function findPathBFS(source, id) {
     return [];
 }
 
-// console.log(findPathBFS(node, 312));
+console.log(findPathBFS(node, 312));

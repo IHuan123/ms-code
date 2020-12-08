@@ -28,7 +28,6 @@ var User = (function () {
 
 console.log(new User('lilei'))
 
-
 //使用Map实现私有属性 
 var User1 = (function () {
   var map = new Map();

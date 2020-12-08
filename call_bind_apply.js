@@ -8,7 +8,8 @@ Function.prototype.myCall=function(obj,...args){
     }
     //this为调用myCall的function
     obj.fn = this;
-    obj.fn(...args);//apply使用[].slice.call(args,1)
+    //apply使用[].slice.call(args,1)
+    obj.fn(...args);
     delete obj.fn;
 }
 
