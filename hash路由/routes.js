@@ -26,7 +26,7 @@ class Route{
       })
       if(!that.hash) that.hash = '/';
       let index = that.routes.findIndex((item)=>{
-        return item.path === that.hash;;
+        return item.path === that.hash;
       })
       that.view.innerHTML = that.routes[index].component;
       window.addEventListener('hashchange',that.routeChange)  
