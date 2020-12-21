@@ -18,7 +18,7 @@ function* test(a,b){
     console.log('fooVal',fooVal)
     //     ||
     //     \/
-    // for(let item of foo()){
+    // for(let item of foo()){ //可以用for ... of循环迭代generator对象，这种方式不需要我们自己判断done：
     //     yield item;
     // }
     yieldVal =yield c;

@@ -38,17 +38,17 @@ class myPromise{
     then(onFulfilled, onRejected) {
         setTimeout(()=>{
             switch (this.state) {
-            case 'fulfilled':
-                if(isFunction(onFulfilled)){
-                    onFulfilled(this.value)
-                }
-                break
-            case 'rejected':
-                if(isFunction(onRejected)){
-                    onRejected(this.value)
-                }
-                break
-            default:
+                case 'fulfilled':
+                    if(isFunction(onFulfilled)){
+                        onFulfilled(this.value)
+                    }
+                    break
+                case 'rejected':
+                    if(isFunction(onRejected)){
+                        onRejected(this.value)
+                    }
+                    break
+                default:
             }            
         },0)
     }

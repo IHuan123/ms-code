@@ -20,7 +20,6 @@
          if (!isFunction(handle)) {
              throw new Error('MyPromise must accept a function as a parameter')
          }
-
          // 执行handle
          try {
              // class中的function的prototype为undefind，需要bind处理
@@ -29,8 +28,6 @@
              this._reject(err)
          }
      }
-
-
      // 添加resovle时执行的函数
      _resolve(val) {
 

@@ -6,16 +6,18 @@ function ajax({
 }) {
     let xhr = null;
     if (window.ActiveXObject) {
-        // code for IE6, IE5
+        // code for IE6, IE5 
+        // IE6+浏览器
         xhr = new ActiveXObject("Microsoft.XMLHTTP")
     } else {
+        // 非IE5和IE6浏览器
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xhr = new XMLHttpRequest()
     };
     if (method === 'GET' && params) {
         url = url + '?' + handleParams(params);
     }
-    if(!!timeout&&timeout>0){
+    if (!!timeout && timeout > 0) {
         xhr.timeout = timeout;
     }
     return new Promise((resolve, reject) => {
@@ -68,6 +70,6 @@ ajax({
         password: 100000,
     }
 }).then(res => {
-    console.log(res)
-    document.documentElement.innerHTML = res;
+    console.log(JSON.parse(res))
+    // document.documentElement.innerHTML = res;
 });

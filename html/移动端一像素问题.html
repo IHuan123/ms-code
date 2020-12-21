@@ -7,7 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        :root{
+            --color:pink;
+        }
+        .h1{
+            
+            color:var(--color);
+        }
         .box {
+            --color:green;
             width: 200px;
             height: 200px;
             border: 1px solid black;
@@ -22,6 +30,7 @@
         }
 
         p {
+            --color:blue;
             color: #f55;
             background: yellow;
             width: 200px;
@@ -38,7 +47,7 @@
 
 <body>
     <div class="box" data-test="111">
-
+        <h1 class="h1">hello world</h1>
     </div>
     <p>看看我的 margin是多少</p>
     <div style="overflow: hidden;">
@@ -52,3 +61,20 @@
 </body>
 
 </html>
+<script>
+    function getList(){
+        for(var i=0;i<=10;i++){
+            if(i<4){
+                continue;
+            }
+            console.log(i)
+        }
+        let count = 10;
+        while(true){
+            count--;
+            if(count>0&&count<5) break;
+            console.log(count)
+        }
+    }
+    getList();
+</script>
