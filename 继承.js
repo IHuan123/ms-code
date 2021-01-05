@@ -19,8 +19,11 @@
 //寄生继承
 //父类
 function People(name,age){
-  this.name = name || 'wangxiao'
-  this.age = age || 27
+  this.name = name || 'wangxiao';
+  this.age = age || 27;
+  this.sum = function(){
+    alert(this.name)
+  }
 }
 //父类方法
 People.prototype.eat = function(){

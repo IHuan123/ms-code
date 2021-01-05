@@ -20,11 +20,11 @@ function People(name, age) {
     this.name = name
     this.age = age
 }
-let peo = myNew(People, 'Bob', 22)
+let peo = myNew(People, 'Bob', 22);
+console.log('People prototype',People.prototype)
 console.log(peo)
-console.log(peo.name)
-console.log(peo.age)
-
+console.log(peo.__proto__)
+console.log(peo instanceof People)
 
 //第二种
 // 上面是本身Dog

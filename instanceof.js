@@ -4,11 +4,11 @@ function _instanceof(constructor,obj){
     let proptotype = constructor.prototype;
     while(true){
         if(proto===null||proto===undefined){
-            console.log('1111')
+            console.log('not exist')
             return false;
         }
         if(proto===proptotype){
-            console.log('22222')
+            console.log('exist')
             return true;
         }
         proto = proto.__proto__

@@ -13,5 +13,4 @@ window.onload = function () {
     let resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
     //监听窗口变化
     window.addEventListener(resizeEvt, setRem, false)
-
 }
