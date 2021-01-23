@@ -48,3 +48,16 @@ function Woman(name,age){
 Woman.prototype.constructor = Woman;
 let womanObj = new Woman();
 console.log(womanObj)
+for(let key in womanObj){
+  console.log('for...in',key)
+}
+// for(let item of womanObj){
+//   console.log('for...of',item)
+// }
+
+let obj = {name:'lilei'};
+Object.freeze(obj);
+obj.name = '6666';
+
+
+console.log(obj)
