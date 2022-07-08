@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ms</title>
+</head>
+
+<body>
+    <button onclick="test()">click</button>
+</body>
+
+</html>
+<script>
+    class MyPromise {
+        status = "pending"; // 执行状态 fulfilled, rejected, pending
+        value = undefined; // .then或者catch接受的值
+        fulfillQueue = []; //成功的队列
+        failureQueue = []; // 失败的队列
+
+        constructor(cb) {
+            // class中的function的prototype为undefind，需要bind处理
+            cb(this.resolve.bind(this), this.reject.bind(this));
+        }
+        // .then返回的是一个新的Promise 为了能链式调用
+        then(success = (value) => value, failure = (value) => value) {
+            let isFunction = (fn) => typeof fn
+            return new MyPromise((resolve, reject) => {
+                // 包装成功回调
+                const successFn = value => {
+                    try {
+                        if (isFunction(success)) {
+                            const result = success(value)
+                            // 如果结果值是一个Promise，那么需要将这个Promise的值继续往下传递，否则直接resolve即可
+                            result instanceof MyPromise ? result.then(resolve, reject) : resolve(result)
+                        } else {
+                            resolve(value)
+                        }
+                    } catch (err) {
+                        reject(err)
+                    }
+                }
+                // 包装失败回调
+                const failureFn = value => {
+                    try {
+                        if (isFunction(failure)) {
+                            const result = failure(value)
+                            result instanceof MyPromise ? result.then(resolve, reject) : resolve(result)
+                        } else {
+                            reject(value)
+                        }
+                    } catch (err) {
+                        reject(err)
+                    }
+                }
+                // 如果Promise的状态还未结束，则将成功和失败的函数缓存到队列里
+                if (this.status === 'pending') {
+                    this.fulfillQueue.push(successFn)
+                    this.failureQueue.push(failureFn)
+                    // 如果已经成功结束，直接执行成功回调 
+                } else if (this.status === 'fulfilled') {
+                    success(this.value)
+                } else if (this.status === 'rejected') {
+                    // 如果已经失败，直接执行失败回调
+                    failure(this.value)
+                }
+            })
+
+        }
+        resolve(res) {
+            const doResolve = () => {
+                if (this.status === "pending") {
+                    this.status = "fulfilled";
+                    this.value = res;
+                    let cb
+                    while (cb = this.fulfillQueue.shift()) {
+                        cb && cb(this.value)
+                    }
+                }
+            };
+            setTimeout(doResolve, 0);
+        }
+        reject(err) {
+            const doReject = () => {
+                if (this.status === 'pending') {
+                    this.status = 'rejected'
+                    this.value = err
+                    let cb
+                    while (cb = this.failureQueue.shift()) {
+                        cb && cb(this.value)
+                    }
+                }
+            }
+            setTimeout(doReject, 0);
+        }
+    }
+    
+    function myNew(fn,...args){
+        let prototype = fn.prototype
+        let obj = Object.create(prototype)
+        fn.call(obj,...args)
+        return  obj
+    }
+    function t(name){
+        this.name = name
+    }
+    console.log(myNew(t,"lilei"))
+</script>

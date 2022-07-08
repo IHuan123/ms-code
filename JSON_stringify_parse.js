@@ -9,17 +9,6 @@ if (!window.JSON) {
             if (jsonObj === null) {
                 return String(jsonObj);
             }
-            //处理被序列化数据部位对象等其他引用类型
-            switch (typeof jsonObj) {
-                case 'number':
-                case 'boolean':
-                    return String(jsonObj);
-                case 'string':
-                    return '"' + jsonObj + '"';
-                case 'undefined':
-                case 'function':
-                    return undefined;
-            }
             //处理引用数据
             switch (Object.prototype.toString.call(jsonObj)) {
                 case '[object Array]':
