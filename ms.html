@@ -96,15 +96,134 @@
             setTimeout(doReject, 0);
         }
     }
-    
-    function myNew(fn,...args){
+
+    function myNew(fn, ...args) {
         let prototype = fn.prototype
         let obj = Object.create(prototype)
-        fn.call(obj,...args)
-        return  obj
+        fn.call(obj, ...args)
+        return obj
     }
-    function t(name){
+    function t(name) {
         this.name = name
     }
-    console.log(myNew(t,"lilei"))
+    // console.log(myNew(t,"lilei"))
+    let obj = { name: "hello" }
+    function t2() {
+        console.log(this)
+        return "done"
+    }
+    Function.prototype.myCall = function (ctx, ...args) {
+
+        // 简单处理未传ctx上下文，或者传的是null和undefined等场景
+        if (!ctx) {
+            ctx = typeof window !== 'undefined' ? window : global
+        }
+        let fnName = Symbol()
+
+        let obj = Object(ctx)
+        obj[fnName] = this;
+        let res = obj[fnName](...args)
+        delete obj[fnName]
+        return res
+    }
+    // t2.myCall(obj,20)
+
+
+    let str = "  hello 2121   "
+    String.prototype.myTrim = function () {
+        return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    }
+    // console.log(str.myTrim())
+    /** 
+     * Promise.all
+    */
+    Promise.myAll = function (promises) {
+        return new Promise((resolve, reject) => {
+            let values = [], len = promises.length, count = 0
+            for (let i = 0; i < len; i++) {
+                let item = promises[i]
+                Promise.resolve(item).then(res => {
+                    count += 1
+                    values[i] = res
+                    if (count === len) resolve(values)
+                }).catch(reject)
+            }
+        })
+    }
+    let p1 = new Promise((resolve, reject) => {
+        setTimeout(()=>{
+            resolve(1)
+        },0)
+    })
+    let p2 = new Promise((resolve, reject) => {
+        resolve(2)
+    })
+    let p3 = new Promise((resolve, reject) => {
+        resolve(3)
+    })
+    // let res = Promise.all([p1,p2,p3]).then(res=>{
+    //     console.log(res)
+    // })
+    // console.log(res)
+    // let res = Promise.myAll([p1, p2, p3]).then(res => {
+    //     console.log(res)
+    // }).catch(e=>{
+    //     console.log(e)
+    // })
+    // Promise.myRace = function (promises = []) {
+    //     return new Promise((resolve, reject) => {
+    //         promises.forEach(promise => {
+    //             Promise.resolve(promise).then(resolve).catch(reject)
+    //         })
+    //     })
+    // }
+    // let res = Promise.myRace([p1, p2, p3]).then(res => {
+    //     console.log(res)
+    // })
+    // console.log(Object.create({}))
+    function ObjectCreate(proto, propertiesObject){
+        if (![ 'object', 'function' ].includes(typeof proto)) {
+            throw new TypeError(`Object prototype may only be an Object or null: ${proto}`)
+        }
+        let Ctor = new Function()
+        Ctor.prototype = proto
+        const res = new Ctor()
+        // 支持第二个参数
+        if (propertiesObject) {
+            // Object.defineProperty的批量处理方法
+            Object.defineProperties(res, propertiesObject)
+        }
+          // 支持空原型
+        if (proto === null) {
+            res.__proto__ = null
+        }
+        return res
+    }
+    // console.log(ObjectCreate({}))
+
+    Array.prototype.myReduce = function(callbackFn, initialValue){
+        console.log(this)
+        if (typeof callbackFn !== 'function') {
+            throw `${callbackFn} is not a function`
+        }
+        let previousValue = this[0]
+        , len = this.length
+        , i = 1 ;
+        if(initialValue){
+            previousValue = initialValue
+            i = 0
+        }
+        for(; i < len; i++){
+            previousValue = callbackFn(previousValue, this[i] ,i , this)
+        }
+        return previousValue
+    }
+    let arr = [1,2,3]
+    let res = arr.myReduce((previousValue, currentValue , i , arr)=>{
+        return previousValue + currentValue
+    },20)
+    console.log(res)
+    // arr.reduce((previousValue, currentValue)=>{
+
+    // },[])
 </script>
