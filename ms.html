@@ -151,9 +151,9 @@
         })
     }
     let p1 = new Promise((resolve, reject) => {
-        setTimeout(()=>{
+        setTimeout(() => {
             resolve(1)
-        },0)
+        }, 0)
     })
     let p2 = new Promise((resolve, reject) => {
         resolve(2)
@@ -181,8 +181,8 @@
     //     console.log(res)
     // })
     // console.log(Object.create({}))
-    function ObjectCreate(proto, propertiesObject){
-        if (![ 'object', 'function' ].includes(typeof proto)) {
+    function ObjectCreate(proto, propertiesObject) {
+        if (!['object', 'function'].includes(typeof proto)) {
             throw new TypeError(`Object prototype may only be an Object or null: ${proto}`)
         }
         let Ctor = new Function()
@@ -193,7 +193,7 @@
             // Object.defineProperty的批量处理方法
             Object.defineProperties(res, propertiesObject)
         }
-          // 支持空原型
+        // 支持空原型
         if (proto === null) {
             res.__proto__ = null
         }
@@ -201,29 +201,83 @@
     }
     // console.log(ObjectCreate({}))
 
-    Array.prototype.myReduce = function(callbackFn, initialValue){
+    Array.prototype.myReduce = function (callbackFn, initialValue) {
         console.log(this)
         if (typeof callbackFn !== 'function') {
             throw `${callbackFn} is not a function`
         }
         let previousValue = this[0]
-        , len = this.length
-        , i = 1 ;
-        if(initialValue){
+            , len = this.length
+            , i = 1;
+        if (initialValue) {
             previousValue = initialValue
             i = 0
         }
-        for(; i < len; i++){
-            previousValue = callbackFn(previousValue, this[i] ,i , this)
+        for (; i < len; i++) {
+            previousValue = callbackFn(previousValue, this[i], i, this)
         }
         return previousValue
     }
-    let arr = [1,2,3]
-    let res = arr.myReduce((previousValue, currentValue , i , arr)=>{
-        return previousValue + currentValue
-    },20)
-    console.log(res)
+    let arr = [1, 2, 3]
+    // let res = arr.myReduce((previousValue, currentValue , i , arr)=>{
+    //     return previousValue + currentValue
+    // },20)
+    // console.log(res)
     // arr.reduce((previousValue, currentValue)=>{
 
     // },[])
+    //柯里化
+    let fn1 = function (x) {
+        console.log('fn1');
+        return x + 10;//16
+    };
+    let fn2 = function (x) {
+        console.log('fn2');
+        return x * 10;//160
+    };
+    let fn3 = function (x) {
+        console.log('fn3');
+        return x / 5;// 32
+    };
+    let fn4 = function (x) {
+        console.log('fn4');
+        return x / 5; // 32/5
+    };
+    let fn5 = function (x) {
+        console.log('fn5');
+        return x / 5; // 32/25
+    };
+
+    function compose(...fns) {
+        let len = fns.length;
+        fns = [].slice.apply(fns)
+        return function (...args) {
+            if (len === 0) return args
+            if (len === 1) return fns[0](...args)
+            return fns.reduce((previousFn, currentFn) => {
+                if (typeof previousFn === 'function') {
+                    return currentFn(previousFn(...args))
+                } else {
+                    return currentFn(...args)
+                }
+            })
+        }
+    }
+    let res2 = compose(fn1, fn2, fn3, fn4, fn5)(6);
+    console.log(res2)
+    //compose 原理同上
+    function compose2(...funcs) {
+        if (funcs.length === 0) {
+            return arg => arg
+        }
+        if (funcs.length === 1) {
+            return funcs[0]
+        }
+        return funcs.reduce((a, b) => (...args) => b(a(...args)));
+        // return funcs.renduce((a,b)=>{
+        //     return (...args)=>{
+        //         return b(a(...args))
+        //     }
+        // })
+    }
 </script>
