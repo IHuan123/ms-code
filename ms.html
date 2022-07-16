@@ -263,8 +263,8 @@
             })
         }
     }
-    let res2 = compose(fn1, fn2, fn3, fn4, fn5)(6);
-    console.log(res2)
+    // let res2 = compose(fn1, fn2, fn3, fn4, fn5)(6);
+    // console.log(res2)
     //compose 原理同上
     function compose2(...funcs) {
         if (funcs.length === 0) {
@@ -280,4 +280,17 @@
         //     }
         // })
     }
+
+    let arr2 = [1,2,3,4,5,56], arr3 = [2,4,5,6,7]
+
+    function getCommon(arr1= [],arr2 = []){
+        let res = [], len1 = arr1.length
+        for(let i=0;i<len1;i++){
+            let item = arr1[i]
+            if(arr2.includes(item)) res.push(item)
+        }
+        return res
+    }
+    console.log(getCommon(arr2,arr3))
+
 </script>
